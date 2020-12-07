@@ -1,0 +1,59 @@
+
+07-Dec-2020
+-----------
+1. What is Angular?
+- Web programming
+- UI programming
+- Framework on UI
+- jQuery - Async calls
+- Angular is a java script framework
+- Normally used for SPA apps
+- Framework - component-based
+- SPA
+- Page will not refreshed for each and every request
+
+- MPA - HTML generation - server - ASP.NET, JSP, Servlet, Python, PHP 
+- SPA - HTML generation - client - Angular, React, Vue
+
+- MVC - Angular
+-  V  - React - Redux - FW
+
+- AoT - Ahead of Time compilation (v4+)
+- JIT - Just in Time (v2)
+
+- Universal - SSR
+
+- Material - UI Framework - Material Design - Android
+
+- Tree Shaking - Dead code elimination
+
+- ES - spec
+  JS - implementation of ES spec
+  
+- JS code
+
+  - dynamic types
+  - static types
+  
+  
+  var name: string 
+  var age - number
+  
+  var n1: number = 10;
+  var n2: number = 20;
+  
+  ....
+  
+  
+  n1 = 'a'; - compile
+  
+  
+  ....
+  
+  var result = n2 / n1;   (production)
+  
+  
+- Java, C#, C++ => TS => JS
+
+- Class, Interface, Module, Generics
+  
