@@ -1,0 +1,182 @@
+Daily Notes
+
+30-Nov-20
+---------
+1. What is Angular?
+2. Why Angular?
+
+- it is a new name given to javascript
+- Building dynamic web applications.
+- Platform to build client applications
+- framework to create final javascript code
+- platform to build web app
+- It is an open source full featured JavaScript framework.
+- that renders as web pages talking to each other
+- (Single page application)SPA development, faster loads hole application
+- its a platform for building mobile and desktop web application.
+- Javascript framework
+
+- we did have web app using jsp, asp and servlets
+- JSP & Servlets
+- made it easy to develop earlier manolithic web app
+- web app was difficult to make it modularized
+- single page application hence no page reload
+- we need more of reusable
+- scripting language was not strictly typed
+
+3. What is the difference between jQuery and Angular?
+- both are very different :-)
+- JQuery and Angular have no word common :-D
+- jquery makes javascript more simpler, smaller
+- jquery depends on dom elements availability
+- no restapi only ajax calls
+- jquery is a library , anguler is a framework
+- jquery library, angular is framework
+
+4. Library vs Framework
+- libraries are already built
+- framework is guideline to build and extend
+- lib is limited
+- A library offers functions , whereas a framework defines the entire application design.
+- framework will evolve
+- we are calling library function, framework IOC
+- Frameworks will be derived based on best practices
+- there can be more libs, but only one framework
+
+ Traditional Web App
+ - ASP.NET, Servlets, JSP, PHP, Python
+   - Server side rendering - HTML is generated on server
+   
+ - Angular, React, Vue
+   - Client side rendering - HTML is generated on the browser
+   
+LINQ
+- 
+
+Dead code elimination - Tree shaking
+
+N-Tier Apps
+1. UI - Angular - Angular              - Angular               - Angular / React / Vue.js / jQuery
+2. BL - Node.js - MS.NET (Asp.net MVC) - Java (SpringBoot)     - PHP / Python
+3. DL - MongoDB - MS SQL Server        - Oracle / MySql Server - MySQL
+
+
+var n1: number, n2: number;
+
+n1 = 10;
+n2 = 10;   // number
+
+...
+
+
+n2 = 'Hi';  // string
+
+
+...
+
+
+result = n1 / n2;
+
+OOP - class, interface, modules, generics, namespaces
+
+TS
+
+before 2015
+
+Web App
+- Browser - HTML, CSS, JS 
+- cannot run TS
+
+01-Dec-20
+---------
+- Bootstrapping of Angular App
+
+- ng serve
+  1. TS - converts into - JS
+  2. Create bundles - webpack - generate new JS files (5)
+  3. Inject <script> tags in index.html
+  4. Host app on a web server (Angular Live Development Server)
+  
+- index.html
+- app.js
+- products.js
+- customers.js
+- 
+
+
+Features
+- Product management
+- Customer management
+- Order management
+- Payments
+- Shipping
+- ShoppingCart
+
+- Component - Search
+  - UI - HTML code - .html (template)
+  - Style - CSS code - .css
+  - Data - TS class - property - categories[] - .ts
+  - Behavior - TS class - method - search(searchText) - .ts
+
+02-Dec-20
+---------
+Include Bootstrap 
+1. CDN url
+
+2. Install locally within my Angular App
+
+<div style="color: blue"></div>
+
+03-Dec-20
+---------
+
+04-Dec-20
+---------
+- ProductDetailComponent
+  - name, image, price, seller, publisher, rating
+  - use the service
+  
+- ShoppingCartComponent
+  - name, image, price, seller
+  - use the service
+  
+- OrdersComponent
+  - name, image, price, seller
+  - use the service
+
+Issues
+- Duplicating the code
+- Violates SRP
+
+- Service (ProductsService)
+  - https://amazon.in/api/products/10
+  - ajax request to products api
+  
+  - Data service
+  
+- Tight coupling - use DI
+
+- EventEmitter - Component to Component interaction
+- Subject - Service to Component interaction
+
+Angular Forms
+1. Template-driven forms (FormsModule) - ngModel
+  - built-in validations
+  - code - html template
+  - less code
+2. Reactive forms (model-driven forms) (ReactiveFormsModule)
+  - custom validators
+  - code - ts
+  - unit-testable
+  - you have more control
+  - more code
+  
+- NgForm
+  - controls - object
+  - errors - object
+  - value - object
+  
+  - valid / invalid - boolean
+  - touched / untouched - boolean
+  - pristine / dirty - boolean
+  
