@@ -57,3 +57,46 @@
 
 - Class, Interface, Module, Generics
   
+08-Dec-2020
+-----------
+- Testing testing frameworks (unit testing)
+  1. Jasmine
+  2. Chai
+  3. Mocha
+  4. Jest
+  
+- Angular
+  1. Jasmine - unit testing
+  2. Protractor - end-to-end testing
+  3. Karma - test runner
+  
+- Launching an Angular apps
+  1. Convert TS into JS code - html, css, js
+  2. Create bundles (JS, CSS, Images)
+  3. Update index.html with references to bundled code
+  4. Launch web server - Angular Live Development Server
+  5. App is hosted on web server - app is available for use
+  
+- JavaScript Modules
+
+  - Amazon
+    - Product Management
+    - Customer Management
+    - Order Management
+    - Shipping
+    - ShoppingCart
+    - Payments
+    
+    - index.html
+      - app.js        - JS Module
+      - products.js   - JS Module - class, function, variable
+      - customers.js  - JS Module - class, function, variable
+      - orders.js     - JS Module
+      
+- Component - Search Component
+  1. UI - HTML - .html
+  2. Style - CSS - .css
+  3. Data - class - property (categories[]) - TS - .ts
+  4. Behavior - class - method (search(searchText)) - TS - .ts
+  
+    
