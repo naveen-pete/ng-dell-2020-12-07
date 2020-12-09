@@ -99,4 +99,21 @@
   3. Data - class - property (categories[]) - TS - .ts
   4. Behavior - class - method (search(searchText)) - TS - .ts
   
+09-Dec-2020
+-----------
+- How to include Bootstrap (UI (CSS) Framework by Twitter) in my app?
+  1. Use <link> to CDN deployment of Bootstrap
+  2. Install Bootstrap locally within the app
+  
+- Data binding
+  Model - TS property - productName
+  View - html - 
+  
+- Directives - built-in
+  1. Attribute directives
+    - ngModel, ngStyle, ngClass
+    
+  2. Structural directives
+    - *ngFor, *ngIf, *ngSwitch
+  
     
