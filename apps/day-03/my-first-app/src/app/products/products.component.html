@@ -1,1 +1,33 @@
 <h4>List of Products</h4>
+
+<!-- 1. Interpolation (one-way data binding - TS into HTML) -->
+<div>
+  Product Name: {{ productName }} <br>
+  Price: {{ productPrice }}
+</div>
+<hr>
+
+<!-- 2. Property Binding (one-way data binding - TS into HTML) -->
+<div>
+  Product Name<br>
+  <!-- <input type="text" [value]="productName" class="form-control"> -->
+  <input type="text" [(ngModel)]="productName" class="form-control">
+  <!-- ngModel - is a directive -->
+</div>
+<hr>
+
+<!-- 3. Event Binding (one-way data binding - HTML into TS) -->
+<div>
+  <button class="btn btn-primary" (click)="onSaveProduct()">Save Product</button>
+</div>
+<hr>
+
+<!-- 4. Event Binding (one-way data binding - HTML into TS) -->
+<div>
+  <input type="text" class="form-control" placeholder="search..." (keyup)="onSearch($event)">
+</div>
+<hr>
+
+<div>
+  Hurry! Year end sale! 20% discount on "{{ productName }}"
+</div>
