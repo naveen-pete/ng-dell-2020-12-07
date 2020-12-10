@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
-  productId: string = 'A100';
-  productName: string = 'iPhone X';
-  productDescription: string = 'A smart phone from Apple Inc.';
-  productPrice: number = 70000;
-  productIsAvailable: boolean = false;
+export class ProductsComponent {
+  showMessage = false;
+  product: ProductModel = new ProductModel();
 
   products: ProductModel[] = [
     {
@@ -33,19 +30,27 @@ export class ProductsComponent implements OnInit {
       description: 'A smart phone from Apple',
       price: 70000,
       isAvailable: true
-    },
-    {
-      id: '40',
-      name: 'Nokia',
-      description: 'A smart phone from Nokia',
-      price: 40000,
-      isAvailable: false
     }
   ];
 
-  constructor() { }
+  onSubmit() {  // outer function
+    console.log('Product form is submitted.');
 
-  ngOnInit(): void {
+    this.product.id = Date.now().toString();
+    this.product.price = +this.product.price;
+
+    this.products.unshift(this.product);
+    this.product = new ProductModel();
+
+    this.showMessage = true;
+    var obj = this;
+    console.log('onSubmit() - this:', this);
+
+    setTimeout(function () {  // inner function
+      console.log('setTimeout callback - this:', this);
+      obj.showMessage = false;
+      console.log('showMessage has been reset to false.');
+    }, 5000);
   }
 
 }
@@ -57,3 +62,5 @@ class ProductModel {
   price: number;
   isAvailable: boolean;
 }
+
+// instance / object - reference
