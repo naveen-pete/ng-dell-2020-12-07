@@ -236,6 +236,9 @@ ES2015 / ES6
 - Class
   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/class
 
+- this
+  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+
 - let/const
   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let
   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const

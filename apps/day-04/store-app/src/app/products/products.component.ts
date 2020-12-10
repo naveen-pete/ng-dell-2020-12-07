@@ -34,8 +34,6 @@ export class ProductsComponent {
   ];
 
   onSubmit() {  // outer function
-    console.log('Product form is submitted.');
-
     this.product.id = Date.now().toString();
     this.product.price = +this.product.price;
 
@@ -43,14 +41,40 @@ export class ProductsComponent {
     this.product = new ProductModel();
 
     this.showMessage = true;
-    var obj = this;
-    console.log('onSubmit() - this:', this);
 
-    setTimeout(function () {  // inner function
-      console.log('setTimeout callback - this:', this);
-      obj.showMessage = false;
-      console.log('showMessage has been reset to false.');
+    // const obj = this;
+    // setTimeout(function () {  // inner function
+    //   obj.showMessage = false;
+    // }, 5000);
+
+    setTimeout(() => {  // inner function
+      this.showMessage = false;
     }, 5000);
+
+  }
+
+  onDelete(productId: string) {
+    if (confirm('Are you sure?')) {
+      // 1. find the index of the product with passed id
+      const index = this.products.findIndex(
+        p => p.id === productId
+      );
+
+      // -1
+      // const index = this.products.findIndex(
+      //   function (p) {
+      //     return p.id === productId;
+      //   }
+      // );
+
+
+      // 2. use Array.splice() method, pass index as 1st param, 
+      // no. of elements to be removed as 2nd param
+      if (index >= 0) {
+        this.products.splice(index, 1);
+      }
+
+    }
   }
 
 }
@@ -62,5 +86,3 @@ class ProductModel {
   price: number;
   isAvailable: boolean;
 }
-
-// instance / object - reference
