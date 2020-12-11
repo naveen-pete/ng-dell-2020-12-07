@@ -116,4 +116,36 @@
   2. Structural directives
     - *ngFor, *ngIf, *ngSwitch
   
+11-Dec-2020
+-----------
+- Component Interaction
+
+  - Child to parent interaction
+  
+  class A {
+    arr[];
     
+    b: B
+    
+    A() {
+      this.b = new B()
+      b.event.subscribe()
+    }
+  }
+  
+  class B {
+    event
+    
+    B() {
+    }
+    
+    op() {
+      this.event.raise();
+    }
+    // 
+  }
+  
+  1. cyclic reference
+  2. tight coupling
+  
+  Observer / pub - sub
