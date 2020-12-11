@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { ProductModel } from '../product.model';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-product-form',
@@ -13,7 +14,7 @@ export class ProductFormComponent implements OnInit {
   product: ProductModel = new ProductModel();
   showMessage = false;
 
-  constructor() { }
+  constructor(private service: ProductsService) { }
 
   ngOnInit(): void {
   }
@@ -22,8 +23,9 @@ export class ProductFormComponent implements OnInit {
     this.product.id = Date.now().toString();
     this.product.price = +this.product.price;
 
-    this.addProduct.emit(this.product);
+    // this.addProduct.emit(this.product);
     // this.products.unshift(this.product);
+    this.service.addProduct(this.product);
     this.product = new ProductModel();
 
     this.showMessage = true;

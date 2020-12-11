@@ -149,3 +149,63 @@
   2. tight coupling
   
   Observer / pub - sub
+  
+- Services
+
+  - ProductDetailComponent
+    - name, image, price, seller, rating
+    - code to issue http request to this REST API url
+      - https://amazon.in/api/products/1
+    
+  - ShoppingCartComponent
+    - name, image, price
+    - code to issue http request to this REST API url
+      - https://amazon.in/api/products/1
+    
+  - OrdersComponent
+    - name, image, price
+    - code to issue http request to this REST API url
+      - https://amazon.in/api/products/1
+    
+  MVC
+  
+  Issues
+    - code duplication
+    - violates SRP (design principle)
+    
+  - Service
+  
+  class A {
+    b: B
+    
+    constructor() {
+      // this.b = new B();
+    }
+    
+    m1() {
+      this.b.log(value);
+    }
+  }
+  
+  class B {
+    log(message) {
+      // code to log into the server
+    }
+  }
+  
+  class MockB {
+    log(message) {
+      // code to log into the server
+    }
+  }
+
+  
+  Unit tests for class A
+  
+  a: A = new A();
+  a.m1();
+  
+  
+  Tight coupling
+  
+  - Dependency Injection
