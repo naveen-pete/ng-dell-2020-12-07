@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { ProductModel } from './product.model';
 
 @Injectable()
 export class ProductsService {
+  refreshProducts = new Subject<ProductModel[]>();
+
   private products: ProductModel[] = [
     {
       id: '10',
@@ -29,14 +32,31 @@ export class ProductsService {
   ];
 
   getAllProducts(): ProductModel[] {
-    // code to issue http request to the server (REST API URL)
-    // return this.products.slice();
-    return this.products;
+    return [...this.products];
   }
 
   addProduct(newProduct: ProductModel) {
-    console.log('products (before):', this.products);
     this.products.unshift(newProduct);
-    console.log('products (after):', this.products);
+
+    // raise / emit refreshProducts event
+    this.refreshProducts.next([...this.products]);
+  }
+
+  deleteProduct(id: string) {
+    // const index = this.products.findIndex(
+    //   p => p.id === id
+    // );
+
+    // if (index >= 0) {
+    //   this.products.splice(index, 1);
+
+    //   // raise / emit refreshProducts event
+    //   this.refreshProducts.next([...this.products]);
+    // }
+
+    this.products = this.products.filter(
+      p => p.id !== id
+    );
+    this.refreshProducts.next([...this.products]);
   }
 }

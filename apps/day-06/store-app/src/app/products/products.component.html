@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-      <app-product-form (addProduct)="onAddProduct($event)"></app-product-form>
+      <app-product-form></app-product-form>
     </div>
 
     <div class="col">
       <h4>List of Products</h4>
-      <app-product-detail [product]="p" (deleteProduct)="onDeleteProduct($event)" *ngFor="let p of products">
+      <app-product-detail [product]="p" *ngFor="let p of products">
       </app-product-detail>
     </div>
   </div>

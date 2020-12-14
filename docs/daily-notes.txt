@@ -209,3 +209,23 @@
   Tight coupling
   
   - Dependency Injection
+
+14-Dec-2020
+-----------
+- ProductsComponent (Parent)
+    - products[]
+    - this.service.getAllProducts()
+    - this.service.refreshProducts.subscribe()
+        
+                                        - ProductsService
+                                            - refreshProducts (Event)
+                                            - products[]
+                                            - getAllProducts()
+                                            - addProduct()
+                                              - this.refreshProducts.emit(this.products)
+        
+- ProductFormComponent (Child)
+    - this.service.addProduct(newProduct)
+    
+- Component (C) - Component (P) - EventEmitter
+- Service - Component - Subject

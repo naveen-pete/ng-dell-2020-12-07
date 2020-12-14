@@ -1,4 +1,5 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { ProductModel } from './product.model';
 import { ProductsService } from './products.service';
@@ -8,29 +9,29 @@ import { ProductsService } from './products.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   products: ProductModel[] = [];
-  // service: ProductsService;
+  private subRefreshProducts: Subscription;
 
   constructor(private service: ProductsService) {
-    // this.service = service;
+    console.log('ProductsComponent constructor() invoked.');
   }
 
   ngOnInit() {
     this.products = this.service.getAllProducts();
-  }
 
-  onAddProduct(product: ProductModel) {
-    this.products.unshift(product);
-  }
-
-  onDeleteProduct(productId: string) {
-    const index = this.products.findIndex(
-      p => p.id === productId
+    this.subRefreshProducts = this.service.refreshProducts.subscribe(
+      (products: ProductModel[]) => this.products = products
     );
 
-    if (index >= 0) {
-      this.products.splice(index, 1);
+    console.log('ProductsComponent.ngOnInit() invoked. refreshProducts event subscribed.');
+  }
+
+  ngOnDestroy() {
+    if (this.subRefreshProducts) {
+      this.subRefreshProducts.unsubscribe();
     }
+
+    console.log('ProductsComponent.ngOnDestroy() invoked. refreshProducts event unsubscribed.');
   }
 }
