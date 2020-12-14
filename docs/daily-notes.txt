@@ -229,3 +229,28 @@
     
 - Component (C) - Component (P) - EventEmitter
 - Service - Component - Subject
+
+- Form Validations
+  1. Template-Driven forms - FormsModule
+    - built-in form validations
+    - add code in html template
+    - not unit-testable
+    - less code 
+    - less control
+    
+  2. Reactive forms (Model-Driven forms) - ReactiveFormsModule
+    - built-in form validations
+    - custom validations
+    - add code in typescript
+    - unit-testable
+    - more code
+    - more control
+    
+- Form (control) properties
+  - valid / invalid - boolean  (ng-valid / ng-invalid)
+  - pristine / dirty - boolean  (ng-pristine / ng-dirty)
+  - touched / untouched - boolean  (ng-touched / ng-untouched)
+  
+  - errors - object (null / non-null)
+  - controls - object
+  - value - object

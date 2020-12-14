@@ -2,8 +2,11 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { ProductModel } from './product.model';
+import { LoggerService } from '../common/logger.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ProductsService {
   refreshProducts = new Subject<ProductModel[]>();
 
@@ -31,6 +34,8 @@ export class ProductsService {
     }
   ];
 
+  constructor(private logger: LoggerService) { }
+
   getAllProducts(): ProductModel[] {
     return [...this.products];
   }
@@ -40,6 +45,7 @@ export class ProductsService {
 
     // raise / emit refreshProducts event
     this.refreshProducts.next([...this.products]);
+    this.logger.log('New product saved successfully.');
   }
 
   deleteProduct(id: string) {
@@ -58,5 +64,6 @@ export class ProductsService {
       p => p.id !== id
     );
     this.refreshProducts.next([...this.products]);
+    this.logger.log('Product deleted successfully.');
   }
 }

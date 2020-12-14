@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { ProductModel } from '../product.model';
 import { ProductsService } from '../products.service';
@@ -17,21 +18,35 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    const product: ProductModel = {
-      ...this.product,
-      id: Date.now().toString(),
-      price: +this.product.price
+  onSubmit(form: NgForm) {
+    console.log('Product form submitted.');
+
+    if (!form.valid) {
+      console.log('Product form is not valid.');
+      return;
+    } else {
+      console.log('Product form is valid.');
     }
 
-    this.service.addProduct(product);
-    this.product = new ProductModel();
+    console.log(form.value);
 
-    this.showMessage = true;
+    form.reset();
 
-    setTimeout(() => {
-      this.showMessage = false;
-    }, 5000);
+
+    // const product: ProductModel = {
+    //   ...this.product,
+    //   id: Date.now().toString(),
+    //   price: +this.product.price
+    // }
+
+    // this.service.addProduct(product);
+    // this.product = new ProductModel();
+
+    // this.showMessage = true;
+
+    // setTimeout(() => {
+    //   this.showMessage = false;
+    // }, 5000);
 
   }
 

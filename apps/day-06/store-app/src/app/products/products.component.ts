@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { ProductModel } from './product.model';
 import { ProductsService } from './products.service';
+import { LoggerService } from '../common/logger.service';
 
 @Component({
   selector: 'app-products',
@@ -13,9 +14,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: ProductModel[] = [];
   private subRefreshProducts: Subscription;
 
-  constructor(private service: ProductsService) {
-    console.log('ProductsComponent constructor() invoked.');
-  }
+  constructor(
+    private service: ProductsService,
+    private logger: LoggerService
+  ) { }
 
   ngOnInit() {
     this.products = this.service.getAllProducts();
@@ -24,14 +26,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
       (products: ProductModel[]) => this.products = products
     );
 
-    console.log('ProductsComponent.ngOnInit() invoked. refreshProducts event subscribed.');
+    this.logger.log('ProductsComponent.ngOnInit() invoked. refreshProducts event subscribed.');
   }
 
   ngOnDestroy() {
     if (this.subRefreshProducts) {
       this.subRefreshProducts.unsubscribe();
     }
-
-    console.log('ProductsComponent.ngOnDestroy() invoked. refreshProducts event unsubscribed.');
   }
 }
