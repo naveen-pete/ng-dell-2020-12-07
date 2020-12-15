@@ -30,9 +30,6 @@ export class ProductFormComponent implements OnInit {
 
     console.log(form.value);
 
-    form.reset();
-
-
     // const product: ProductModel = {
     //   ...this.product,
     //   id: Date.now().toString(),

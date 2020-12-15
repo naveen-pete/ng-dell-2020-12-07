@@ -40,29 +40,42 @@ export class ProductsService {
     return [...this.products];
   }
 
+  getProduct(id: string) {
+    const product = this.products.find(
+      p => p.id === id
+    );
+
+    return { ...product };
+  }
+
   addProduct(newProduct: ProductModel) {
     this.products.unshift(newProduct);
 
-    // raise / emit refreshProducts event
     this.refreshProducts.next([...this.products]);
-    this.logger.log('New product saved successfully.');
+    this.logger.log('Product added successfully.');
+  }
+
+  updateProduct(id: string, product: ProductModel) {
+    const productToUpdate = this.products.find(
+      p => p.id === id
+    );
+
+    if (productToUpdate) {
+      productToUpdate.name = product.name;
+      productToUpdate.description = product.description;
+      productToUpdate.price = product.price;
+      productToUpdate.isAvailable = product.isAvailable;
+
+      this.refreshProducts.next([...this.products]);
+      this.logger.log('Product updated successfully.');
+    }
   }
 
   deleteProduct(id: string) {
-    // const index = this.products.findIndex(
-    //   p => p.id === id
-    // );
-
-    // if (index >= 0) {
-    //   this.products.splice(index, 1);
-
-    //   // raise / emit refreshProducts event
-    //   this.refreshProducts.next([...this.products]);
-    // }
-
     this.products = this.products.filter(
       p => p.id !== id
     );
+
     this.refreshProducts.next([...this.products]);
     this.logger.log('Product deleted successfully.');
   }
