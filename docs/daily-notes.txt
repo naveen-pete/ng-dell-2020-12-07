@@ -254,3 +254,8 @@
   - errors - object (null / non-null)
   - controls - object
   - value - object
+  
+15-Dec-2020
+-----------
+- Routing - Navigation within my app
+  - RouterModule - @angular/router
