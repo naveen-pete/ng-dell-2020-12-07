@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { ProductModel } from '../product.model';
@@ -10,40 +10,39 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  @ViewChild('productForm') form: NgForm;
   product: ProductModel = new ProductModel();
   showMessage = false;
 
   constructor(private service: ProductsService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  onSubmit(form: NgForm) {
+  onSubmit() {
     console.log('Product form submitted.');
 
-    if (!form.valid) {
+    if (!this.form.valid) {
       console.log('Product form is not valid.');
       return;
-    } else {
-      console.log('Product form is valid.');
     }
+    const id = Date.now().toString();
+    const { name, description, price, isAvailable } = this.form.value;
 
-    console.log(form.value);
+    const product: ProductModel = {
+      id,
+      name,
+      description,
+      price: +price,
+      isAvailable: isAvailable || false
+    };
 
-    // const product: ProductModel = {
-    //   ...this.product,
-    //   id: Date.now().toString(),
-    //   price: +this.product.price
-    // }
+    this.service.addProduct(product);
+    this.form.reset();
+    this.showMessage = true;
 
-    // this.service.addProduct(product);
-    // this.product = new ProductModel();
-
-    // this.showMessage = true;
-
-    // setTimeout(() => {
-    //   this.showMessage = false;
-    // }, 5000);
+    setTimeout(() => {
+      this.showMessage = false;
+    }, 5000);
 
   }
 
