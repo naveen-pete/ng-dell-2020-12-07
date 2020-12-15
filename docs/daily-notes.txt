@@ -259,3 +259,7 @@
 -----------
 - Routing - Navigation within my app
   - RouterModule - @angular/router
+  
+  1. define application routes
+  2. configure app routes with the RouterModule
+  3. add configured RouterModule to imports array

@@ -19,12 +19,21 @@ import { ProductFormComponent } from './products/product-form/product-form.compo
 
 // http://localhost:4200 - HomeComponent
 // http://localhost:4200/products - ProductsComponent
+// http://localhost:4200/products/new - ProductFormComponent
+// http://localhost:4200/products/10 - ProductDetailComponent
+// http://localhost:4200/products/10/edit - ProductFormComponent
 // http://localhost:4200/sign-up - SignUpComponent
 // http://localhost:4200/login - LoginComponent
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'products', component: ProductsComponent },
+  {
+    path: 'products', component: ProductsComponent, children: [
+      { path: 'new', component: ProductFormComponent },
+      { path: ':id', component: ProductDetailComponent },
+      { path: ':id/edit', component: ProductFormComponent },
+    ]
+  },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'login', component: LoginComponent },
   // Solution #1
@@ -38,7 +47,15 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HeaderComponent,
+
+    HomeComponent,
+    NotFoundComponent,
+
+    SignUpComponent,
+    LoginComponent,
+
     ProductsComponent,
+    ProductListComponent,
     ProductDetailComponent,
     ProductFormComponent
   ],

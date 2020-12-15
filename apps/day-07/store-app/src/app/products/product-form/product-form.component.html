@@ -5,8 +5,8 @@
     <form #productForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" type="text" id="name" name="name" placeholder="Enter name" ngModel #name="ngModel"
-          required minlength="3" />
+        <input class="form-control" type="text" id="name" name="name" placeholder="Enter name" [ngModel]="product.name"
+          #name="ngModel" required minlength="3" />
         <div class="alert alert-warning mt-1" *ngIf="name.touched && !name.valid">
           <div *ngIf="name.hasError('required')">
             Name is required.
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" rows="3" placeholder="Enter description" id="description" name="description"
-          ngModel #description="ngModel" required></textarea>
+          [ngModel]="product.description" #description="ngModel" required></textarea>
         <div class="alert alert-warning mt-1" *ngIf="description.touched && !description.valid">
           Description is required.
         </div>
@@ -28,15 +28,16 @@
 
       <div class="form-group">
         <label for="price">Price</label>
-        <input class="form-control" type="text" id="price" name="price" placeholder="Enter price" ngModel
-          #price="ngModel" required />
+        <input class="form-control" type="text" id="price" name="price" placeholder="Enter price"
+          [ngModel]="product.price" #price="ngModel" required />
         <div class="alert alert-warning mt-1" *ngIf="price.touched && !price.valid">
           Price is required.
         </div>
       </div>
 
       <div class="form-group form-check">
-        <input type="checkbox" id="isAvailable" name="isAvailable" class="form-check-input" value="true" ngModel />
+        <input type="checkbox" id="isAvailable" name="isAvailable" class="form-check-input" value="true"
+          [ngModel]="product.isAvailable" />
         <label for="isAvailable" class="form-check-label">Available?</label>
       </div>
 

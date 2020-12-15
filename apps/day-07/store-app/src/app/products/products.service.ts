@@ -31,6 +31,13 @@ export class ProductsService {
       description: 'A smart phone from Apple',
       price: 70000,
       isAvailable: true
+    },
+    {
+      id: '40',
+      name: 'Asus Zenfone',
+      description: 'A smart phone from Asus',
+      price: 50000,
+      isAvailable: true
     }
   ];
 
@@ -49,7 +56,8 @@ export class ProductsService {
   }
 
   addProduct(newProduct: ProductModel) {
-    this.products.unshift(newProduct);
+    this.products = [...this.products, newProduct];
+    // this.products.push(newProduct);
 
     this.refreshProducts.next([...this.products]);
     this.logger.log('Product added successfully.');

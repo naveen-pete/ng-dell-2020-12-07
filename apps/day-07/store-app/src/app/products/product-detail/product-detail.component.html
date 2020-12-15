@@ -5,11 +5,12 @@
     <p class="card-text"><strong class="mr-2">Price:</strong> <em>{{ product.price | currency : 'INR' }}</em>
     </p>
     <p class="card-text"><strong class="mr-2">Available?</strong> <em class="badge"
-        [ngClass]="product.isAvailable ? 'badge-success' : 'badge-warning'">{{ product.isAvailable ? 'Yes' : 'No' }}</em>
+        [ngClass]="product.isAvailable ? 'badge-success' : 'badge-warning'">{{ product.isAvailable ? 'Yes' : 'No'
+        }}</em>
     </p>
   </div>
   <div class="card-footer text-right">
-    <button type="button" class="btn btn-outline-primary btn-sm mr-2">
+    <button type="button" class="btn btn-outline-primary btn-sm mr-2" (click)="onEdit()">
       Edit
     </button>
     <button type="button" class="btn btn-outline-danger btn-sm" (click)="onDelete()">

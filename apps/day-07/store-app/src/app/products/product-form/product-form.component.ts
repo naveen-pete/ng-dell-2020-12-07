@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { ProductModel } from '../product.model';
@@ -10,13 +11,27 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  private id: string;
+  private addNew: boolean = true;
   @ViewChild('productForm') form: NgForm;
   product: ProductModel = new ProductModel();
   showMessage = false;
 
-  constructor(private service: ProductsService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: ProductsService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((map) => {
+      if (map.get('id')) {
+        this.id = map.get('id');
+        this.product = this.service.getProduct(this.id);
+        this.addNew = false;
+      }
+    });
+  }
 
   onSubmit() {
     console.log('Product form submitted.');
@@ -25,25 +40,26 @@ export class ProductFormComponent implements OnInit {
       console.log('Product form is not valid.');
       return;
     }
-    const id = Date.now().toString();
+
     const { name, description, price, isAvailable } = this.form.value;
 
     const product: ProductModel = {
-      id,
+      id: null,
       name,
       description,
       price: +price,
       isAvailable: isAvailable || false
     };
 
-    this.service.addProduct(product);
-    this.form.reset();
-    this.showMessage = true;
-
-    setTimeout(() => {
-      this.showMessage = false;
-    }, 5000);
-
+    if (this.addNew) {
+      product.id = Date.now().toString();
+      this.service.addProduct(product);
+      this.router.navigate(['/products']);
+    } else {
+      product.id = this.id;
+      this.service.updateProduct(this.id, product);
+      this.router.navigate(['/products', this.id]);
+    }
   }
 
 }
