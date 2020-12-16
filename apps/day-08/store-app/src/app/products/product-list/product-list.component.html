@@ -1,0 +1,8 @@
+<p>
+  <button class="btn btn-primary" (click)="onAdd()">Add New Product</button>
+</p>
+<div class="list-group">
+  <a class="list-group-item list-group-item-action" [routerLink]="['/products', p.id]" *ngFor="let p of products">
+    {{ p.name }}
+  </a>
+</div>
