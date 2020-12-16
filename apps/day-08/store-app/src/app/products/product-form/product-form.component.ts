@@ -34,8 +34,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Product form submitted.');
-
     if (!this.form.valid) {
       console.log('Product form is not valid.');
       return;

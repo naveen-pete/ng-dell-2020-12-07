@@ -262,4 +262,4 @@
   
   1. define application routes
   2. configure app routes with the RouterModule
-  3. add configured RouterModule to imports array
+  3. add configured RouterModule to imports array of AppModule
