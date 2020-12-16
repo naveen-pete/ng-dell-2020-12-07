@@ -1,4 +1,4 @@
-console.log('callback');
+import { users, posts } from './data';
 
 const getUser = function (userName, cb) {
   console.log('callback - getUser() started.');
@@ -32,26 +32,21 @@ const getPosts = (userId, cb) => {
   }, 3000);
 };
 
-console.log('begin');
-
-getUser('hari', (err, user) => {
-  if (err) {
-    console.log('getUser() Error:', err);
-    return;
-  }
-
-  console.log('user:', user);
-  getPosts(user.id, (err, posts) => {
+export function doWork() {
+  getUser('hari', (err, user) => {
     if (err) {
-      console.log('getPosts() Error:', err);
+      console.log('getUser() Error:', err);
       return;
     }
 
-    console.log('posts for user:', posts);
+    console.log('user:', user);
+    getPosts(user.id, (err, posts) => {
+      if (err) {
+        console.log('getPosts() Error:', err);
+        return;
+      }
+
+      console.log('posts for user:', posts);
+    });
   });
-});
-
-// independent on the result of getUser() call
-console.log('perform some other operation..');
-
-console.log('end');
+}

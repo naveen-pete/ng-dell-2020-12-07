@@ -263,3 +263,12 @@
   1. define application routes
   2. configure app routes with the RouterModule
   3. add configured RouterModule to imports array of AppModule
+  
+16-Dec-2020
+-----------
+- Async programming in JS
+  1. Callback
+  2. Promise
+  3. Observable
+      - not is a standard, it is not a part of JS language
+      - third-party library - rxjs

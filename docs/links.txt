@@ -249,6 +249,9 @@ ES2015 / ES6
 - Spread syntax
   - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
   
+- Promises
+  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+  
 ------------------------------------------------------------
 Debugging
 - Augury 

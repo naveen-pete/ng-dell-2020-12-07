@@ -1,9 +1,8 @@
-console.log('promise');
+import { users, posts } from './data';
 
-const getUser = function (userName) {
-  console.log('promise - getUser() started.');
-
+const getUser = (userName) => {
   return new Promise((resolve, reject) => {
+    console.log('promise - getUser() started.');
     setTimeout(() => {
       const user = users.find(
         u => u.name === userName
@@ -37,22 +36,17 @@ const getPosts = (userId) => {
   });
 }
 
-
-console.log('begin');
-
-getUser('krish')
-  .then((user) => {
-    console.log('user:', user);
-    return getPosts(user.id);
-  })
-  .then((posts) => {
-    console.log('posts for user:', posts);
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
-
-// independent on the result of getUser() call
-console.log('perform some other operation..');
-
-console.log('end');
+// ES6/ES2015
+export const doWork = () => {
+  getUser('krish')
+  // .then((user: any) => {
+  //   console.log('user:', user);
+  //   return getPosts(user.id);
+  // })
+  // .then((posts: any) => {
+  //   console.log('posts for user:', posts);
+  // })
+  // .catch((error) => {
+  //   console.log('Error:', error);
+  // });
+};

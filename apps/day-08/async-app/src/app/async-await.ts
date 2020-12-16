@@ -1,9 +1,8 @@
-console.log('promise');
+import { users, posts } from './data';
 
-const getUser = function (userName) {
-  console.log('promise - getUser() started.');
-
+const getUser = (userName) => {
   return new Promise((resolve, reject) => {
+    console.log('async/await - getUser() started.');
     setTimeout(() => {
       const user = users.find(
         u => u.name === userName
@@ -37,22 +36,15 @@ const getPosts = (userId) => {
   });
 }
 
-
-console.log('begin');
-
-getUser('krish')
-  .then((user) => {
+// ES7/ES2016
+export const doWork = async () => {
+  try {
+    const user: any = await getUser('krish');
     console.log('user:', user);
-    return getPosts(user.id);
-  })
-  .then((posts) => {
+
+    const posts: any = await getPosts(user.id);
     console.log('posts for user:', posts);
-  })
-  .catch((error) => {
-    console.log('Error:', error);
-  });
-
-// independent on the result of getUser() call
-console.log('perform some other operation..');
-
-console.log('end');
+  } catch (err) {
+    console.log('Error:', err);
+  }
+};
