@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
+import { environment } from "../../environments/environment";
 import { ProductModel } from './product.model';
 import { LoggerService } from '../common/logger.service';
 
@@ -12,7 +13,7 @@ import { LoggerService } from '../common/logger.service';
 export class ProductsService {
   refreshProducts = new Subject<ProductModel[]>();
 
-  private apiUrl = 'https://my-demo-project-24c8c-default-rtdb.firebaseio.com/store-app-db/products';
+  private apiUrl = `${environment.dataApiUrl}/products`;
   private products: ProductModel[] = [];
 
   constructor(

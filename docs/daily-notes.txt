@@ -323,3 +323,7 @@ App expectation
     "price": 30
   }
 ]
+
+- Authentication
+  - Sign up - https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+  - Sign in - https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]

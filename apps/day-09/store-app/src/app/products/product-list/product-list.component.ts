@@ -12,6 +12,7 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+  isLoading = false;
   products: ProductModel[] = [];
   private subRefreshProducts: Subscription;
 
@@ -21,13 +22,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.service.getAllProducts().subscribe(
       (products: ProductModel[]) => {
         this.products = products;
+        this.isLoading = false;
       },
       (error) => {
         console.log('Get products failed.');
         console.log('Error:', error);
+        this.isLoading = false;
       }
     );
 

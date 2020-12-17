@@ -8,24 +8,49 @@
         </div>
 
         <div class="card-body">
-          <form>
+          <form [formGroup]="form" (ngSubmit)="onSignUp()">
             <div class="form-group">
               <label for="name">Name</label>
-              <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name" />
+              <input class="form-control" type="text" id="name" name="name" placeholder="Enter your name"
+                formControlName="name" />
+              <div class="alert alert-warning mt-1" *ngIf="name.touched && name.invalid">
+                Name is required.
+              </div>
+
             </div>
 
             <div class="form-group">
               <label for="email">Email</label>
-              <input class="form-control" type="text" id="email" name="email" placeholder="Enter email" />
+              <input class="form-control" type="text" id="email" name="email" placeholder="Enter email"
+                formControlName="email" />
+              <div class="alert alert-warning mt-1" *ngIf="email.touched && email.invalid">
+                <div *ngIf="email.hasError('required')">
+                  Email is required.
+                </div>
+                <div *ngIf="email.hasError('email')">
+                  Email is not valid.
+                </div>
+                <div *ngIf="email.hasError('isEmailTaken')">
+                  This email is already taken by another user.
+                </div>
+              </div>
             </div>
 
             <div class="form-group">
               <label for="password">Password</label>
               <input class="form-control" type="password" id="password" name="password" placeholder="Enter password"
-                autocomplete="off" />
+                autocomplete="off" formControlName="password" />
+              <div class="alert alert-warning mt-1" *ngIf="password.touched && password.invalid">
+                <div *ngIf="password.hasError('required')">
+                  Password is required.
+                </div>
+                <div *ngIf="password.hasError('minlength')">
+                  Password should have at least 6 characters.
+                </div>
+              </div>
             </div>
 
-            <button type="button" class="btn btn-primary btn-block">Sign up</button>
+            <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="!form.valid">Sign up</button>
           </form>
         </div>
       </div>

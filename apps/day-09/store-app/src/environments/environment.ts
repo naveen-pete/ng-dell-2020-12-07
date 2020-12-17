@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  dataApiUrl: 'https://my-demo-project-24c8c-default-rtdb.firebaseio.com/store-app-db',
+  authApiUrl: 'https://identitytoolkit.googleapis.com/v1/accounts',
+  firebaseApiKey: ''
 };
 
 /*
