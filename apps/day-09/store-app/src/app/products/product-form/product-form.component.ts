@@ -49,12 +49,19 @@ export class ProductFormComponent implements OnInit {
       isAvailable: isAvailable || false
     };
 
+    console.log('product:', product);
+
     if (this.addNew) {
-      product.id = Date.now().toString();
-      this.service.addProduct(product);
-      this.router.navigate(['/products']);
+      this.service.addProduct(product).subscribe(
+        () => {
+          this.router.navigate(['/products']);
+        },
+        (error) => {
+          console.log('Add product failed.');
+          console.log('Error:', error);
+        }
+      );
     } else {
-      product.id = this.id;
       this.service.updateProduct(this.id, product);
       this.router.navigate(['/products', this.id]);
     }

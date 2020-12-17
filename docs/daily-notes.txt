@@ -272,3 +272,54 @@
   3. Observable
       - not is a standard, it is not a part of JS language
       - third-party library - rxjs
+      
+17-Dec-2020
+-----------
+- products (REST API)
+
+    Functionality      HTTP Verbs    Data (QS, URL Params, Req Body)   Response   Response Code
+  - Get All Products - GET                                             [{}, {}]   200
+  - Get Product      - GET         - id                                {}         200
+  - Create Product   - POST        - product object                    {}         201/200
+  - Update Product   - PUT / PATCH - id, product object                {}         200
+  - Delete Product   - DELETE      - id                                -          200
+  
+- Firebase
+  - BaaS from GCP
+    - http
+    - Firebase API
+    
+ 
+Backend
+{
+  "-MOlR6PP3KtpEG1FmO6T": {
+    "description": "p20 desc",
+    "isAvailable": true,
+    "name": "p20",
+    "price": 20
+  },
+  "-MOlRJsM4omcb5FWbsew": {
+    "description": "p30 desc",
+    "isAvailable": true,
+    "name": "p30",
+    "price": 30
+  }
+}
+
+App expectation
+[
+  {
+    "id": "-MOlR6PP3KtpEG1FmO6T"
+    "description": "p20 desc",
+    "isAvailable": true,
+    "name": "p20",
+    "price": 20
+  },
+  {
+    "id": "-MOlRJsM4omcb5FWbsew",
+    "description": "p30 desc",
+    "isAvailable": true,
+    "name": "p30",
+    "price": 30
+  }
+]

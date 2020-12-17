@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { ProductModel } from './product.model';
 import { LoggerService } from '../common/logger.service';
@@ -10,57 +12,64 @@ import { LoggerService } from '../common/logger.service';
 export class ProductsService {
   refreshProducts = new Subject<ProductModel[]>();
 
-  private products: ProductModel[] = [
-    {
-      id: '10',
-      name: 'Samsung Galaxy S10',
-      description: 'A smart phone from Samsung',
-      price: 50000,
-      isAvailable: true
-    },
-    {
-      id: '20',
-      name: 'Google Pixel 4',
-      description: 'A smart phone from Google',
-      price: 60000,
-      isAvailable: false
-    },
-    {
-      id: '30',
-      name: 'iPhone X',
-      description: 'A smart phone from Apple',
-      price: 70000,
-      isAvailable: true
-    },
-    {
-      id: '40',
-      name: 'Asus Zenfone',
-      description: 'A smart phone from Asus',
-      price: 50000,
-      isAvailable: true
-    }
-  ];
+  private apiUrl = 'https://my-demo-project-24c8c-default-rtdb.firebaseio.com/store-app-db/products';
+  private products: ProductModel[] = [];
 
-  constructor(private logger: LoggerService) { }
+  constructor(
+    private http: HttpClient,
+    private logger: LoggerService
+  ) { }
 
-  getAllProducts(): ProductModel[] {
-    return [...this.products];
-  }
+  getAllProducts(): Observable<ProductModel[]> {
+    return this.http.get(`${this.apiUrl}.json`).pipe(
+      // operator 1,
+      map((responseData: any) => {
+        if (!responseData) {
+          return [];
+        }
 
-  getProduct(id: string) {
-    const product = this.products.find(
-      p => p.id === id
+        const products: ProductModel[] = [];
+        const keys = Object.keys(responseData);
+        keys.forEach((key) => {
+          const product: ProductModel = {
+            ...responseData[key],
+            id: key
+          };
+          products.push(product);
+        })
+        return products;
+      }),
+      // operator 2
+      tap((products: ProductModel[]) => {
+        this.products = [...products];
+      })
     );
-
-    return { ...product };
   }
 
-  addProduct(newProduct: ProductModel) {
-    this.products = [...this.products, newProduct];
-    // this.products.push(newProduct);
+  getProduct(id: string): Observable<ProductModel> {
+    return this.http.get(`${this.apiUrl}/${id}.json`).pipe(
+      map((responseData: any) => {
+        const product: ProductModel = {
+          ...responseData,
+          id: id
+        }
+        return product;
+      })
+    );
+  }
 
-    this.refreshProducts.next([...this.products]);
-    this.logger.log('Product added successfully.');
+  addProduct(newProduct: ProductModel): Observable<any> {
+    return this.http.post(`${this.apiUrl}.json`, newProduct).pipe(
+      tap((responseData: any) => {
+        const product: ProductModel = {
+          ...newProduct,
+          id: responseData.name
+        };
+
+        this.products = [...this.products, product];
+        this.refreshProducts.next(this.products);
+      })
+    );
   }
 
   updateProduct(id: string, product: ProductModel) {
