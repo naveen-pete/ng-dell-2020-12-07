@@ -12,6 +12,7 @@ import { ProductsService } from '../products.service';
 export class ProductDetailComponent implements OnInit {
   private id: string;
   product: ProductModel;
+  isLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,13 +23,16 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((map) => {
       this.id = map.get('id');
+      this.isLoading = true;
       this.service.getProduct(this.id).subscribe(
         (product: ProductModel) => {
           this.product = product;
+          this.isLoading = false;
         },
         (error) => {
           console.log('Get product failed.');
           console.log('Error:', error);
+          this.isLoading = false;
         }
       );
     });
@@ -40,8 +44,16 @@ export class ProductDetailComponent implements OnInit {
 
   onDelete() {
     if (confirm('Are you sure?')) {
-      this.service.deleteProduct(this.product.id);
-      this.router.navigate(['/products']);
+      this.service.deleteProduct(this.product.id).subscribe(
+        () => {
+          this.router.navigate(['/products']);
+        },
+        (error) => {
+          console.log('Delete product failed.');
+          console.log('Error:', error);
+        }
+      );
+
     }
   }
 

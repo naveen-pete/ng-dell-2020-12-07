@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 import { ProductModel } from '../product.model';
 import { ProductsService } from '../products.service';
@@ -27,8 +28,16 @@ export class ProductFormComponent implements OnInit {
     this.route.paramMap.subscribe((map) => {
       if (map.get('id')) {
         this.id = map.get('id');
-        this.product = this.service.getProduct(this.id);
-        this.addNew = false;
+        this.service.getProduct(this.id).subscribe(
+          (product: ProductModel) => {
+            this.product = product;
+            this.addNew = false;
+          },
+          (error) => {
+            console.log('Get product failed.');
+            console.log('Error:', error);
+          }
+        );
       }
     });
   }
@@ -49,22 +58,25 @@ export class ProductFormComponent implements OnInit {
       isAvailable: isAvailable || false
     };
 
-    console.log('product:', product);
-
+    let product$: Observable<any>;
+    let navParams;
     if (this.addNew) {
-      this.service.addProduct(product).subscribe(
-        () => {
-          this.router.navigate(['/products']);
-        },
-        (error) => {
-          console.log('Add product failed.');
-          console.log('Error:', error);
-        }
-      );
+      product$ = this.service.addProduct(product);
+      navParams = ['/products'];
     } else {
-      this.service.updateProduct(this.id, product);
-      this.router.navigate(['/products', this.id]);
+      product$ = this.service.updateProduct(this.id, product);
+      navParams = ['/products', this.id];
     }
+
+    product$.subscribe(
+      () => {
+        this.router.navigate(navParams);
+      },
+      (error) => {
+        console.log('Add/Update product failed.');
+        console.log('Error:', error);
+      }
+    );
   }
 
 }

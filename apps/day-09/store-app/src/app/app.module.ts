@@ -17,6 +17,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { ProductFormComponent } from './products/product-form/product-form.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AppRoutingModule } from './app-routing.module';
     ProductsComponent,
     ProductListComponent,
     ProductDetailComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

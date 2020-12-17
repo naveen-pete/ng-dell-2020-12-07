@@ -73,27 +73,29 @@ export class ProductsService {
   }
 
   updateProduct(id: string, product: ProductModel) {
-    const productToUpdate = this.products.find(
-      p => p.id === id
-    );
+    return this.http.patch(`${this.apiUrl}/${id}.json`, product)
+      .pipe(
+        tap((responseData: any) => {
+          const updatedProduct: ProductModel = {
+            ...responseData,
+            id: id
+          };
+          this.products = this.products.map(
+            p => p.id === id ? updatedProduct : p
+          );
 
-    if (productToUpdate) {
-      productToUpdate.name = product.name;
-      productToUpdate.description = product.description;
-      productToUpdate.price = product.price;
-      productToUpdate.isAvailable = product.isAvailable;
-
-      this.refreshProducts.next([...this.products]);
-      this.logger.log('Product updated successfully.');
-    }
+          this.refreshProducts.next(this.products);
+        })
+      );
   }
 
   deleteProduct(id: string) {
-    this.products = this.products.filter(
-      p => p.id !== id
-    );
+    return this.http.delete(`${this.apiUrl}/${id}.json`).pipe(
+      tap(() => {
+        this.products = this.products.filter(p => p.id !== id);
 
-    this.refreshProducts.next([...this.products]);
-    this.logger.log('Product deleted successfully.');
+        this.refreshProducts.next(this.products);
+      })
+    );
   }
 }
