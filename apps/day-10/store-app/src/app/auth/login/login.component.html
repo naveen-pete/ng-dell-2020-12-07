@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <div class="card bg-light mx-auto mb-3" style="max-width: 30rem;">
+        <div class="card-header">
+          <h4 class="card-title text-center">Login</h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="onLogin()">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input class="form-control" type="text" id="email" name="email" placeholder="Enter email"
+                formControlName="email" />
+              <div class="alert alert-warning" *ngIf="email.touched && email.invalid">
+                <div *ngIf="email.hasError('required')">
+                  Email is required.
+                </div>
+                <div *ngIf="email.hasError('email')">
+                  Email is not valid.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input class="form-control" type="password" id="password" name="password" placeholder="Enter password"
+                autocomplete="off" formControlName="password" />
+              <div class="alert alert-warning" *ngIf="password.touched && password.invalid">
+                <div *ngIf="password.hasError('required')">
+                  Password is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center" *ngIf="!isLoading">
+              <button type="submit" [disabled]="!form.valid" class="btn btn-outline-primary">Login</button>
+            </div>
+
+            <app-spinner *ngIf="isLoading"></app-spinner>
+
+          </form>
+        </div>
+      </div>
+
+      <div class="alert alert-danger mx-auto" style="max-width: 30rem;" *ngIf="!isLoading && errorMessage">
+        {{ errorMessage }}
+      </div>
+
+    </div>
+  </div>
+</div>
