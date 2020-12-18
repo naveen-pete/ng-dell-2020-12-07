@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   dataApiUrl: 'https://my-demo-project-24c8c-default-rtdb.firebaseio.com/store-app-db',
   authApiUrl: 'https://identitytoolkit.googleapis.com/v1/accounts',
-  firebaseApiKey: ''
+  firebaseApiKey: 'AIzaSyDitlsnblfxMLYXxolM8-FYcR6u_1oyYjI'
 };
 
 /*

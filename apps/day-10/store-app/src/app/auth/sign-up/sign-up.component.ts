@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { AuthData } from '../auth-data.model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +15,11 @@ export class SignUpComponent implements OnInit {
   errorMessage: string;
   isLoading = false;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -36,6 +43,26 @@ export class SignUpComponent implements OnInit {
       password: this.form.value.password,
       returnSecureToken: true
     }
+
+    this.authService.signUp(authData).subscribe(
+      // success callback
+      () => {
+        this.isLoading = false;
+        this.router.navigate(['/products']);
+      },
+      // failure callback
+      (error: Error) => {
+        console.log('Sign up failed.');
+        console.log('Error:', error);
+        this.isLoading = false;
+
+        this.errorMessage = error.message;
+        window.setTimeout(() => {
+          this.errorMessage = null;
+        }, 6000);
+
+      }
+    );
   }
 
   get name() {

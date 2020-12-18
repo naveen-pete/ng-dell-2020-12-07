@@ -12,9 +12,9 @@ import { LoggerService } from '../common/logger.service';
 })
 export class ProductsService {
   refreshProducts = new Subject<ProductModel[]>();
+  private products: ProductModel[] = [];
 
   private apiUrl = `${environment.dataApiUrl}/products`;
-  private products: ProductModel[] = [];
 
   constructor(
     private http: HttpClient,

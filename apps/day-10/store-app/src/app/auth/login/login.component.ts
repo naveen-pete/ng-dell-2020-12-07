@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthData } from '../auth-data.model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,11 @@ export class LoginComponent implements OnInit {
   errorMessage: string;
   isLoading = false;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -35,6 +41,24 @@ export class LoginComponent implements OnInit {
       password: this.form.value.password,
       returnSecureToken: true
     }
+
+    this.authService.login(authData).subscribe(
+      () => {
+        this.isLoading = false;
+        this.router.navigate(['/products']);
+      },
+      (error: Error) => {
+        console.log('Login failed.');
+        console.log('Error:', error);
+        this.isLoading = false;
+
+        this.errorMessage = error.message;
+        window.setTimeout(() => {
+          this.errorMessage = null;
+        }, 6000);
+      }
+    );
+
   }
 
   get email() {
