@@ -11,6 +11,7 @@ import { ProductDetailComponent } from "./products/product-detail/product-detail
 import { ProductFormComponent } from "./products/product-form/product-form.component";
 import { ProductsComponent } from "./products/products.component";
 
+import { AuthGuard } from "./auth/auth.guard";
 // http://localhost:4200 - HomeComponent
 // http://localhost:4200/products - ProductsComponent
 // http://localhost:4200/products/new - ProductFormComponent
@@ -22,7 +23,7 @@ import { ProductsComponent } from "./products/products.component";
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {
-    path: 'products', component: ProductsComponent, children: [
+    path: 'products', component: ProductsComponent, canActivate: [AuthGuard], children: [
       { path: 'new', component: ProductFormComponent },
       { path: ':id', component: ProductDetailComponent },
       { path: ':id/edit', component: ProductFormComponent },

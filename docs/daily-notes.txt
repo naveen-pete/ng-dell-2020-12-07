@@ -324,6 +324,27 @@ App expectation
   }
 ]
 
+  
+18-Dec-2020
+-----------
 - Authentication
   - Sign up - https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
   - Sign in - https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+
+- Persistence on the browser
+  1. Cookies - prior to 2015 - older api
+  2. LocalStorage - ES2015 - 
+  
+- Auth token
+  1. query string
+  2. request header - custom header
+  
+  https://my-demo-project-24c8c-default-rtdb.firebaseio.com/store-app-db.json?auth=token
+  
+User          Not Logged In     Logged In
+------------------------------------------
+Home          Visible           Visible
+Products      Not visible       Visible
+Sign up       Visible           Not visible
+Login         Visible           Not visible
+Logout        Not visible       Visible

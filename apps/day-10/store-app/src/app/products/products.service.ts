@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { environment } from "../../environments/environment";
 import { ProductModel } from './product.model';
 import { LoggerService } from '../common/logger.service';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,7 @@ export class ProductsService {
 
   constructor(
     private http: HttpClient,
+    private authService: AuthService,
     private logger: LoggerService
   ) { }
 
@@ -45,6 +48,34 @@ export class ProductsService {
         this.products = [...products];
       })
     );
+
+    // return this.authService.user.pipe(
+    //   switchMap((user: User) => {
+    //     const token = user.token;
+    //     return this.http.get<ProductModel[]>(`${this.apiUrl}.json?auth=${token}`);
+    //   }),
+    //   map((responseData: any) => {
+    //     if (!responseData) {
+    //       return [];
+    //     }
+
+    //     const products: ProductModel[] = [];
+    //     const keys = Object.keys(responseData);
+    //     keys.forEach((key) => {
+    //       const product: ProductModel = {
+    //         ...responseData[key],
+    //         id: key
+    //       };
+    //       products.push(product);
+    //     })
+    //     return products;
+    //   }),
+    //   tap((products) => {
+    //     this.products = [...products];
+    //   })
+    // );
+
+
   }
 
   getProduct(id: string): Observable<ProductModel> {

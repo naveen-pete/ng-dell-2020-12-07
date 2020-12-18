@@ -43,6 +43,57 @@ export class AuthService {
       );
   }
 
+  logout() {
+    this.user.next(null);
+    localStorage.removeItem('userData');
+
+    if (this.autoLogoutTimer) {
+      window.clearTimeout(this.autoLogoutTimer);
+      this.autoLogoutTimer = null;
+    }
+
+    this.router.navigate(['/login']);
+  }
+
+  autoLogin() {
+    const userData: {
+      id: string;
+      email: string;
+      _token: string;
+      _tokenExpiryDate: string;
+    } = JSON.parse(localStorage.getItem('userData'));
+
+    if (!userData) {
+      return;
+    }
+
+    const tokenExpiryDate = new Date(userData._tokenExpiryDate);
+    const user = new User(
+      userData.id,
+      userData.email,
+      userData._token,
+      tokenExpiryDate
+    );
+    if (user.token) {
+      this.user.next(user);
+
+      // start the timer
+      const expiryDuration = tokenExpiryDate.getTime() - Date.now();
+      this.autoLogout(expiryDuration);
+    }
+  }
+
+  private autoLogout(expiryDuration: number) {
+    this.autoLogoutTimer = window.setTimeout(
+      () => {
+        this.logout();
+      },
+      expiryDuration
+    );
+  }
+
+
+
   private handleAuthToken(authResponseData: AuthResponseData) {
     // object destructuring assignment
     const { localId, email, idToken, expiresIn } = authResponseData;
@@ -58,7 +109,7 @@ export class AuthService {
     this.user.next(authenticatedUser);
 
     // start the timer
-    // this.autoLogout(expiresInMS);
+    this.autoLogout(expiresInMS);
   }
 
   // NOTE:
